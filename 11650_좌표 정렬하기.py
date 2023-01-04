@@ -2,7 +2,7 @@ import sys
 N = int(input())
 char =[]
 for i in range(N):
-    a,b = list(map(int,sys.stdin.readline().split()))
+    a,b = sys.stdin.readline().split()
     char.append([a,b])
     
 char.sort()   
