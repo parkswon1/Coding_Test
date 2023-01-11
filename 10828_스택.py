@@ -1,7 +1,6 @@
 import sys
 N = int(sys.stdin.readline())
 stack =[]
-index = 0
 for i in range(N):
     command = sys.stdin.readline().split()
     if command[0] == 'push':
