@@ -10,6 +10,5 @@ for i in range(len(A)):
         low += number//C
         if a != 0:
             low +=1
-
 print(low)
         
