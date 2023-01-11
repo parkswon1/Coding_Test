@@ -16,14 +16,22 @@ for i in range(T):
         elif j == 'D':
             if direction == 1:
                 if frontindex < backindex:
-                    frontindex += 2
+                    while(1):
+                        frontindex += 1
+                        if array[frontindex] == ',' or frontindex == backindex:
+                            frontindex += 1
+                            break
                 else:
                     print('error')
                     errorcode = 1
                     break
             else:
                 if backindex > frontindex:
-                    backindex -= 2
+                    while(1):
+                        backindex -= 1
+                        if array[backindex] == ',' or frontindex == backindex:
+                            backindex -= 1
+                            break
                 else:
                     print('error')
                     errorcode = 1
