@@ -2,18 +2,21 @@ n = int(input())
 a,b = map(int, input().split())
 cus = []
 visit = [0]*(n+1)
+
 for i in range(n+1):
     cus.append([])
 m = int(input())
+
 for i in range(m):
     c,d = map(int, input().split())
     cus[c].append(d)
     cus[d].append(c)
-
+    
 count = 0
 check=0
 deep =[[a]]
 visit[a]=1
+
 for i in deep:
     count +=1
     node = []
@@ -29,5 +32,7 @@ for i in deep:
     if len(node)==0:
         break
     deep.append(node)
+    
 if check ==0:
     print(-1)
+    
