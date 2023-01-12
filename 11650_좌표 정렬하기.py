@@ -1,11 +1,11 @@
 import sys
 N = int(input())
-char =[]
+xy =[]
 for i in range(N):
     a,b = sys.stdin.readline().split()
-    char.append([a,b])
+    xy.append([a,b])
     
-char.sort()   
+xy.sort()   
 
-for i in char:
+for i in xy:
     print(i[0],i[1])
