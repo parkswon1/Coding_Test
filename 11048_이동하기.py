@@ -1,24 +1,19 @@
 import sys
 sys.setrecursionlimit(10**6)
 
-def dfs(node,count):
-    count += miro[node[0]][node[1]]
-    if node == [N-1,M-1]:
-        output.append(count)
-        return
-    for yx in move:
-        y = node[0] + yx[0]
-        x = node[1] + yx[1]
-        if 0 <= x < M and 0 <= y < N:
-            dfs([y,x],count)
-
 N, M = list(map(int,sys.stdin.readline().split()))
 miro = []
+count = []
 for i in range(N):
     miro.append(list(map(int,sys.stdin.readline().split())))
+    count.append([0]*M)
 
-output = []
-move = [[0,1],[1,0],[1,1]]
-dfs([0,0],0)
+count[0][0] = miro[0][0]
+for i in range(1,M):
+    count[0][i] = miro[0][i]+count[0][i-1]
 
-print(max(output))
+for i in range(1,N):
+    for j in range(M):
+        count[i][j] = miro[i][j] + max(count[i-1][j], count[i][j-1])
+
+print(count[N-1][M-1])
