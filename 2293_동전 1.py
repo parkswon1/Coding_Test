@@ -1,16 +1,13 @@
 import sys
 n, k = list(map(int,sys.stdin.readline().split()))
-
 coins = []
 for i in range(n):
     coins.append(int(sys.stdin.readline()))
+dp = [0]*(k+1)
+dp[0] = 1
 
-dp = [[0 for _ in range(n)] for _ in range(k + 1)]
-dp[0][0] = 1
+for coin in coins:
+    for i in range(coin, k+1):
+        dp[i] += dp[i - coin]
 
-for i in range(k+1):
-    for coin in range(n):
-        if i - coins[coin] >= 0:
-            dp[i][coin] = sum(dp[i-coins[coin]][0:coin+1])
-
-print(sum(dp[k]))
+print(dp[k])
