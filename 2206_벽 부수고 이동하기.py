@@ -11,13 +11,19 @@ def bfs(node,count):
                 print(count)
                 return
             if 0 <= y < N and 0 <= x < M:
-                if visit[y][x] == 0:
-                  if wall[y][x] == '0':
-                      visit[y][x] = 1
-                      nextnode.append([y,x,yxz[2]])
-                  elif wall[y][x] == '1' and yxz[2] == 0:
-                      visit[y][x] = 1
-                      nextnode.append([y,x,1])
+                if yxz[2] == 0:
+                    if visit[y][x] != 1:
+                      if wall[y][x] == '0':
+                          visit[y][x] = 1
+                          nextnode.append([y,x,0])
+                      elif wall[y][x] == '1':
+                          visit[y][x] = 1
+                          nextnode.append([y,x,1])
+                else:
+                    if visit[y][x] == 0:
+                        if wall[y][x] == '0':
+                            visit[y][x] = 2
+                            nextnode.append([y,x,1])
     if len(nextnode) == 0:
         print(-1)
         return
