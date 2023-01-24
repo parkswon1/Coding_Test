@@ -32,6 +32,7 @@ R, C = list(map(int,sys.stdin.readline().split()))
 jido = []
 water = []
 move = [[0,1],[0,-1],[1,0],[-1,0]]
+
 for i in range(R):
     line = list(sys.stdin.readline().rstrip())
     for j in range(C):
