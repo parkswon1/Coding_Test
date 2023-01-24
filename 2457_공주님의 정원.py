@@ -61,7 +61,7 @@ for i in range(N):
     elif line[2] == 10:
         endday += 273
     elif line[2] == 11:
-        endday += 303
+        endday += 304
     elif line[2] == 12:
         endday += 334
     days[startday]=max(endday,days[startday])
