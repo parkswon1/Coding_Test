@@ -8,7 +8,7 @@ def bfs(S,water,count):
             x = w[1] + mv[1]
             y = w[0] + mv[0]
             if 0 <= x < C and 0 <= y < R:
-                if jido[y][x] == '.' or jido[y][x] == 0:
+                if jido[y][x] == '.':
                     jido[y][x] = count
                     nextwater.append([y,x])
     for s in S:
