@@ -15,7 +15,7 @@ output = 0
 
 for i in range(1,N):
     if lines[i][0] <= back:
-        back = lines[i][1]
+        back = max(lines[i][1],back)
     else:
         output += abs(back - front)
         front = lines[i][0]
