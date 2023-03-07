@@ -1,43 +1,45 @@
-def bfs(tomatos):
-    global count
-    if len(tomatos) == 0:
-        check = 0
-        for y in range(N):
-            for x in range(M):
-                if visit[y][x] == 0:
-                    check = 1
-                    break
-        if check == 0:
-            print(count+H)
-        else:
-            print(-1)
+def BFS(Tomatos):
+    global day
+    NewTomatos = []
+    for Tomato in Tomatos:
+        for mv in Move:
+            x = mv[2] + Tomato[2]
+            y = mv[1] + Tomato[1]
+            z = mv[0] + Tomato[0]
+            if 0 <= x < M and 0 <= y < N and 0 <= z < H :
+                if Boxs[z][y][x] == 0:
+                    Boxs[z][y][x] = 1
+                    NewTomatos.append([z,y,x])    
+    if len(NewTomatos) == 0:
+        for h in range(H):
+            for n in range(N):
+                for m in range(M):
+                    if Boxs[h][n][m] == 0:
+                       print(-1)
+                       return
+        print(day)
         return
-    nexttomatos = []
-    for tomato in tomatos:
-        for r in ripen:
-            y = tomato[0] + r[0]
-            x = tomato[1] + r[1]
-            if 0 <= y < N and 0 <= x < M:
-                if visit[y][x] == 0:
-                   nexttomatos.append([y,x])
-                   visit[y][x] = 1
-    bfs(nexttomatos)
+    day += 1
+    BFS(NewTomatos)
     
 
-M,N,H = list(map(int,input().split()))
+import sys
+sys.setrecursionlimit(10**9)
 
-visit = []
-tomatos = []
-ripen = [[1,0],[-1,0],[0,1],[0,-1]]
-for y in range(N):
-    visit.append([0]*M)
-    line = list(map(int,input().split()))
-    for x in range(M):
-        if line[x] == 1:
-            tomatos.append([y,x])
-            visit[y][x] = 1
-        elif line[x] == -1:
-            visit[y][x] = 1
+M,N,H = list(map(int,sys.stdin.readline().split()))
 
-count = 0
-bfs(tomatos)
+Move = [[0,0,1],[0,0,-1],[0,1,0],[0,-1,0],[1,0,0],[-1,0,0]]
+Boxs = []
+Tomatos = []
+for h in range(H):
+    Box = []
+    for n in range(N):
+        Line = list(map(int,sys.stdin.readline().split()))
+        for m in range(M):
+            if Line[m] == 1:
+                Tomatos.append([h,n,m])
+        Box.append(Line)
+    Boxs.append(Box)
+
+day = 0
+BFS(Tomatos)
