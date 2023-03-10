@@ -3,7 +3,7 @@ import sys
 N = int(sys.stdin.readline())
 
 if N == 1:
-    print(int(sys.stdin.readline()))
+    print(0)
 else:
     Heap = []
     for n in range(N):
