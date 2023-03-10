@@ -9,8 +9,10 @@ else:
     for n in range(N):
         heapq.heappush(Heap, int(sys.stdin.readline()))
 
-    Output = heapq.heappop(Heap) + heapq.heappop(Heap)
-    for n in range(N-2):
-        Output = Output*2 + heapq.heappop(Heap)
+    Output = 0
+    for n in range(N-1):
+        Sum = heapq.heappop(Heap) + heapq.heappop(Heap)
+        Output += Sum
+        heapq.heappush(Heap, Sum)
     
     print(Output)
