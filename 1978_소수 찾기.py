@@ -1,7 +1,7 @@
 import sys
 N = int(sys.stdin.readline())
 numbers = list(map(int,sys.stdin.readline().split()))
-count = 0
+count = 0 
 for number in numbers:
     check = 0
     if number == 2:
