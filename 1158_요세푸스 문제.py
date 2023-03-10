@@ -15,5 +15,5 @@ while(1):
         break
     while(index >= len(queue)):
         index -= len(queue)
-        
+         
 print("<", ", ".join(str(i) for i in output), ">", sep="")
