@@ -1,24 +1,21 @@
-import sys
-N, K = list(map(int,sys.stdin.readline().split()))
+import heapq
+N, K = list(map(int,input().split()))
 
-sequence = list(map(int,sys.stdin.readline().split()))
+Elec = list(map(int,input().split()))
+
+count  = [0] * 100
+count[Elec[0]-1] = 1
+for e in range(1,len(Elec)):
+    if Elec[e] != Elec[e-1]: 
+        count[Elec[e]-1] += 1
+
 plug = []
-count = 0
-output = 0
 
-for i in range(len(sequence)):
-    if sequence[i] not in plug:
-        if len(plug) < N:
-            plug.append(sequence[i])
+Output = 0
+
+for i in range(len(Elec)):
+    if [count[Elec[i]-1],Elec[i]] not in plug:
+        if len(plug) <= N:
+            heapq.heappush(plug, [count[Elec[i]-1],Elec[i]])
         else:
-            if i+N < len(sequence):
-                for p in range(len(plug)):
-                    if plug[p] not in sequence[i+1:i+N]:
-                        plug[p] = sequence[i]
-            elif i+1 < len(sequence):
-                for p in range(len(plug)):
-                    if plug[p] not in sequence[i+1:len(sequence)]:
-                        plug[p] = sequence[i]
-            output += 1
-                
-print(output)
+            heapq.pop(plug)
