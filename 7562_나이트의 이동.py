@@ -1,41 +1,40 @@
-def BFS(Knights):
-    global Output
-    New_Knights = []
-    Output += 1
-    
-    for KT in Knights:
-        for mv in Move:
-            y = KT[0] + mv[0]
-            x = KT[1] + mv[1]
-            if 0 <= x < I and 0 <= y < I:
-                if [y,x] == Goal:
-                    print(Output)
-                    return
-                elif Board[y][x] == 0:
-                    New_Knights.append([y,x])
-                    Board[y][x] = 1
-    
-    BFS(New_Knights)
+from sys import stdin
+from collections import deque
 
-import sys
-sys.setrecursionlimit(10**7)
+n = int(stdin.readline().rstrip())
+dx=[-2,-2,-1,-1,1,1,2,2]
+dy=[1,-1,2,-2,2,-2,1,-1]
+def bfs(x,y,a,b):
+    queue = deque()
+    temp = deque()
+    queue.append((x,y))
+    cnt =0
+    while True:
+        for i in range(len(queue)):
+            x,y= queue.popleft()
+            for i in range(8):
+                if x == a and y == b:
+                    return cnt
+                nx = x + dx[i]
+                ny = y + dy[i]
+                if nx<0 or nx>=m or ny<0 or ny>=m:
+                    continue
+                if graph[nx][ny] == 0:
+                    graph[nx][ny] = 1
+                    temp.append((nx,ny))
 
-T = int(input())
+        cnt+=1
+        queue = temp
 
-Move = [[1,2],[-1,2],[1,2],[1,-2],[2,1],[-2,1],[2,1],[2,-1]]
-for t in range(T):
-    I = int(sys.stdin.readline())
-    Board = []
-    
-    for i in range(I):
-        Board.append([0]*I)
-    
-    Knight = list(map(int,sys.stdin.readline().split()))
-    Board[Knight[0]][Knight[1]] = 1
-    Goal = list(map(int,sys.stdin.readline().split()))
-    Output = 0
-    
-    if Knight == Goal:
-        print(Output)
-    else:
-        BFS([Knight])
+for _ in range(n):
+    m = int(stdin.readline().rstrip())
+    graph = [] #visited로 사용//
+    for i in range(m):
+        graph.append([])
+        for j in range(m):
+            graph[i].append(0)
+    a,b = map(int,stdin.readline().rstrip().split()) #//현재 나이트
+    x,y = map(int,stdin.readline().rstrip().split()) #//목표
+    print(bfs(x,y,a,b))
+[출처] [백준] 7562 : 나이트의 이동 (Python, 파이썬)|작성자 한성
+
