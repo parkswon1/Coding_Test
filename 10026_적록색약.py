@@ -22,15 +22,14 @@ C_Weak = 0
 for n in range(N):
     for m in range(N):
         if Picture[n][m] != 1 and Picture[n][m] != 0:
-            if Picture[n][m] != 0 and Picture[n][m] != 1:
-                Healthy += 1
-                Check = Picture[n][m]
-                if Check == 'B':
-                    Number = 1
-                else:
-                    Number = 0
-                Picture[n][m] = Number
-                DFS_B_RG([n,m])
+            Healthy += 1
+            Check = Picture[n][m]
+            if Check == 'B':
+                Number = 1
+            else:
+                Number = 0
+            Picture[n][m] = Number
+            DFS_B_RG([n,m])
             
 for n in range(N):
     for m in range(N):
