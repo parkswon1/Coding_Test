@@ -1,13 +1,10 @@
-test_case = int(input())
-
-N = int(input())
-
-hight = list(map(int,input().split()))
-count = 0
-
-for h in range(2,N-2):
-    dif = hight[h] - max(hight[h-2],hight[h-1],hight[h+1],hight[h+2])
-    if dif >= 1:
-        count += dif
+for test_case in range(1,11):
+    N = int(input())
+    tower = list(map(int,input().split()))
+    output = 0
+    for n in range(2,N-2):
+        minus = tower[n] - max(tower[n-2],tower[n-1],tower[n+1],tower[n+2]) 
+        if minus >= 1:
+            output += minus
     
-print(f'#{test_case}',count)
+    print(f"#{test_case}",output)
