@@ -1,29 +1,29 @@
-def dfs(y,x):
-    for m in move:
-        mx = x + m[1]
-        my = y + m[0]
-        if N > mx > -1 and N > my > -1:
-            score = score_map[y][x] + n_map[my][mx]
-            if score < score_map[my][mx]:
-                score_map[my][mx] = score
-                
-                if mx == N -1 and my == N-1:
-                    return
-                else:
-                    dfs(my,mx)
+ds = [(0, -1), (1, 0), (0, 1), (-1, 0)]
 
-T = int(input())
+def isField(i, j):
+    return 0 <= i < N and 0 <= j < N
 
-for test_case in range(1,T+1):
+def bfs(i, j):
+    queue = [(i, j)]
+    while queue:
+        temp = queue[:]
+        queue = []
+        while temp:
+            si, sj = temp.pop()
+            for di, dj in ds:
+                ni = si + di
+                nj = sj + dj
+                if isField(ni, nj) and (not visited[ni][nj] or shortcut[ni][nj] > shortcut[si][sj] + g[ni][nj]):
+                    shortcut[ni][nj] = shortcut[si][sj] + g[ni][nj]
+                    queue.append((ni, nj))
+                    visited[ni][nj] = 1
+
+for i in range(int(input())):
     N = int(input())
-    n_map = []
-    score_map = []
-    move = [[1,0],[-1,0],[0,1],[0,-1]]
-    for n in range(N):
-        score_map.append([999999999]*N)
-        n_map.append([int(l) for l in str(input())])
-    
-    score_map[0][0] = 0
-    dfs(0,0)
-    
-    print(f"#{test_case}", score_map[N-1][N-1])
+    shortcut = [[90001] * N for _ in range(N)]
+    shortcut[0][0] = 0
+    visited = [[0] * N for _ in range(N)]
+    g = [[int(i) for i in list(input())] for _ in range(N)]
+    time_sum = 0
+    bfs(0, 0)
+    print('#{} {}'.format(i+1, shortcut[N-1][N-1]))
