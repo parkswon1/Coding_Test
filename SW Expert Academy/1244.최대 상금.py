@@ -1,18 +1,20 @@
-for tc in range(1,int(input())+1):
-    data, K = input().split() 
-    K = int(K)
-    N = len(data)
-    now = set([data])
-    nxt = set()
-    for _ in range(K):
-        while now:
-            s = now.pop()
-            s = list(s)
-            for i in range(N):
-                for j in range(i+1,N):
-                    s[i],s[j] = s[j],s[i]
-                    nxt.add(''.join(s))
-                    s[i], s[j] = s[j], s[i]
-        now,nxt = nxt,now
+T = int(input())
+for test_case in range(1,T+1):
+    numbers, coin = input().split()
+    coin = int(coin)
+    
+    before = set([numbers])
+    after = set()
 
-    print('#{} {}'.format(tc,max(map(int,now))))
+    for c in range(coin):
+        while before:
+            b = list(before.pop())
+            for i in range(len(b)):
+                for j in range(i+1,len(b)):
+                    b[i], b[j] = b[j], b[i]
+                    after.add(''.join(b))
+                    b[i], b[j] = b[j], b[i]
+        before, after = after, before
+            
+        
+    print(f'#{test_case}', max(map(int,before)))
