@@ -32,3 +32,4 @@ for i in range(1,T+1):
     bfs([[0,0]])
 
     print(f'#{i}', score[N-1][N-1])
+    
