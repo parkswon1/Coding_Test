@@ -36,5 +36,3 @@ for _ in range(n):
     a,b = map(int,stdin.readline().rstrip().split()) #//현재 나이트
     x,y = map(int,stdin.readline().rstrip().split()) #//목표
     print(bfs(x,y,a,b))
-[출처] [백준] 7562 : 나이트의 이동 (Python, 파이썬)|작성자 한성
-
