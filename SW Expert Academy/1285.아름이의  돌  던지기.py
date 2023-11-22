@@ -12,5 +12,5 @@ for test_case in range(1,T+1):
 
     for c in range(100001):
         if count[c] != 0:
-            print(f'#{test_case}', c, count[c])a
+            print(f'#{test_case}', c, count[c])
             break
