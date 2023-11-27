@@ -21,10 +21,7 @@ def search(n,cals,count):
         cals[2] += 1
     if cals[3] != 0:
         cals[3] -= 1
-        if n < 0:
-            number = (-n//A[count])*(-1)
-        else:
-            number = n//A[count]
+        number = int(n/A[count])
         search(number, cals, count + 1)
         cals[3] += 1
 
