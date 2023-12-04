@@ -22,23 +22,23 @@ for k in range(K):
     d = -D
     for n in range(N+1,4):
         rightleft = gears[n][6]
-        if rightleft == right:
+        newright = gears[n][2]
+        if rightleft != right:
             spin(n,d)
             d = -d
-            right = gears[n][6]
+            right = newright
         else:
             break
     d = -D
     for n in range(N-1,-1,-1):
         leftright = gears[n][2]
-        if leftright == left:
+        newleft = gears[n][6]
+        if leftright != left:
             spin(n,d)
             d = -d
-            left = gears[n][2]
+            left = newleft
         else:
             break
-    print(gears)
-
 
 output = 0
 score = [1,2,4,8]
