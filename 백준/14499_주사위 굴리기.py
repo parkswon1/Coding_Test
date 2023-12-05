@@ -46,7 +46,7 @@ for c in command:
             yspin(1)
         if board[y][x] != 0:
             ydice[-1] = board[y][x]
+            board[y][x] = 0
         else:
             board[y][x] = ydice[-1]
-            ydice[-1] = 0
         print(ydice[1])
