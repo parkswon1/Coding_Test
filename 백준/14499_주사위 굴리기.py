@@ -20,7 +20,7 @@ def yspin(d):
 import sys
 from collections import deque
 
-N,M,x,y,K = map(int,sys.stdin.readline().split())
+N,M,y,x,K = map(int,sys.stdin.readline().split())
 ydice = deque([0,0,0,0])
 xdice = deque([0,0,0])
 board = []
