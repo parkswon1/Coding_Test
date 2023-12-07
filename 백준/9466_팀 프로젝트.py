@@ -1,27 +1,22 @@
-def DFS(index):
-    global Start
-    global Member_Count
-    global Output
-    if Student[index] == 0:
-        return
-    elif Student[index] == Start:
-        Student[index] = 0
-        Output += (Member_Count + 1)
-        return
-    else:
-        Next_index = Student[index]
-        Student[index] = 0
-        Member_Count += 1
-        DFS(Next_index-1)
+def dfs(n):
+    global count, startn
+    if visit[n] != 1:
+        visit[n] = 1
+        dfs(number[n]-1)
+        visit[n] = 0
+    elif n != startn:
+        count += 1
 
-T = int(input())
+import sys
 
+T = int(sys.stdin.readline())
 for t in range(T):
-    n = int(input())
-    Student = list(map(int,input().split()))
-    Output = 0
-    for st in range(n):
-        Start = st + 1
-        Member_Count = 0
-        DFS(st)
-    print(n - Output)
+    N = int(sys.stdin.readline())
+    number = list(map(int,sys.stdin.readline().split()))
+    visit = [0]*N
+    count = 0
+    for n in range(N):
+        startn = n
+        visit[n] = 1
+        dfs(number[n]-1)
+    print(count)
