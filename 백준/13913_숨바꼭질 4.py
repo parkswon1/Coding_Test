@@ -1,43 +1,52 @@
-def bfs(node):
+from collections import deque
+
+def bfs(start):
     global count
-    next_node = []
-    for n in node:
-        if n == K:
-            print(count)
-            print(*visit[n])
+    queue = deque([start])
+
+    while queue:
+        current = queue.popleft()
+
+        if current == K:
+            print(count[K])
+            dfs(K)
+            print(*output)
             return
-        arr = visit[n]
-        n_next = n * 2
-        if n_next <= 100000 and visit[n_next] == []:
-            next_node.append(n_next)
-            for a in arr:
-                visit[n_next].append(a)
-            visit[n_next].append(n_next)
-        n_next = n - 1
-        if n_next <= 100000 and visit[n_next] == []:
-            next_node.append(n_next)
-            for a in arr:
-                visit[n_next].append(a)
-            visit[n_next].append(n_next)
-        n_next = n + 1
-        if n_next <= 100000 and visit[n_next] == []:
-            next_node.append(n_next)
-            for a in arr:
-                visit[n_next].append(a)
-            visit[n_next].append(n_next)
-    count += 1
-    bfs(next_node)
+
+        next_nodes = []
+        n_next = current * 2
+        if n_next <= 100000 and visit[n_next] == -1 and n_next != 0:
+            next_nodes.append(n_next)
+            visit[n_next] = current
+            count[n_next] = count[current] + 1
+            queue.append(n_next)
+        n_next = current - 1
+        if 0 <= n_next <= 100000 and visit[n_next] == -1:
+            next_nodes.append(n_next)
+            visit[n_next] = current
+            count[n_next] = count[current] + 1
+            queue.append(n_next)
+        n_next = current + 1
+        if n_next <= 100000 and visit[n_next] == -1:
+            next_nodes.append(n_next)
+            visit[n_next] = current
+            count[n_next] = count[current] + 1
+            queue.append(n_next)
+
+def dfs(K):
+    output.appendleft(K)
+    while K != N:
+        K = visit[K]
+        output.appendleft(K)
 
 import sys
 sys.setrecursionlimit(10**7)
 
-N, K = map(int,sys.stdin.readline().split())
+N, K = map(int, input().split())
 
-if K < N:
-    print(N-K)
-    print(*[i for i in range(N,K-1,-1)])
-else:
-    visit = [[] for _ in range(100001)]
-    visit[N].append(N)
-    count = 0
-    bfs([N])
+visit = [-1]*100001
+count = [0]*100001
+visit[N] = N
+count[N] = 0
+output = deque([])
+bfs(N)
