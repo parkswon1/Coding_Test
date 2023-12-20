@@ -6,7 +6,13 @@ def BFS(nodes):
             if visit[light[0]][light[1]] == 2:
                 visit[light[0]][light[1]] =1
                 output += 1
-
+                for mv in move:
+                    my = light[0] + mv[0]
+                    mx = light[1] + mv[1]
+                    if N > my > -1 and N > mx > -1:
+                        if visit[my][mx] == 0:
+                            newNodes.append([my,mx])
+                            break
     for ns in nodes:
         for mv in move:
             my = ns[0] + mv[0]
@@ -29,7 +35,7 @@ visit[0][0] = 0
 move = [[1,0],[-1,0],[0,1],[0,-1]]
 for m in range(M):
     x,y,a,b = map(int,sys.stdin.readline().split())
-    switch[y-1][x-1].append([a-1,b-1])
+    switch[y-1][x-1].append([b-1,a-1])
 
 output = 1
 BFS([[0,0]])
