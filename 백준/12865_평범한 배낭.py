@@ -1,16 +1,21 @@
 import sys
+
 N, K = map(int,sys.stdin.readline().split())
-product = []
-dp = [0] * (K + 1)
+dp = [[0] * (K+1)]
+WV = []
 for n in range(N):
-    product.append(list(map(int,sys.stdin.readline().split())))
+    WV.append(list(map(int,sys.stdin.readline().split())))
 
-max_score = 0
-for k in range(1,K+1):
-    for p in product:
-        W = k - p[0]
-        if W >= 0:
-            plus = p[1] + dp[W]
-            dp[k] = max(dp[k-1], plus, dp[k])
+WV.sort()
 
-print(dp[-1])
+for i in range(N):
+    w = WV[i][0]
+    v = WV[i][1]
+    dpk = [0]*(K+1)
+    for k in range(1,K+1):
+        if k - w >= 0:
+            dpk[k] = v +dp[i][k-w]
+        dpk[k] = max(dp[i][k],dpk[k])
+    dp.append(dpk)
+
+print(dp[-1][-1])
