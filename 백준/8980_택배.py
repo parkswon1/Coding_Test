@@ -21,23 +21,23 @@ for n in range(1,N+1):
             lastindex = max(box[1],lastindex)
             cargo[box[1]] += box[2]
             totalCargo += box[2]
-            diff = C - totalCargo
-
-            while diff < 0: ##만약 상자 넣었는데 최대 용량 초과라면 초과량 만큼 가장 늦게 주는 마을 상자부터 하차 !!
-                cargo[lastindex] += diff
-                if cargo[lastindex] < 0:
-                    diff = (-cargo[lastindex])
+            diff = totalCargo - C
+            if diff > 0:
+                totalCargo = C
+            while diff > 0: ##만약 상자 넣었는데 최대 용량 초과라면 초과량 만큼 가장 늦게 주는 마을 상자부터 하차 !!
+                if cargo[lastindex] >= diff:
+                    cargo[lastindex] -= diff
+                    diff = 0
+                    break
+                else:
+                    diff -= cargo[lastindex]
                     cargo[lastindex] = 0
-
                     while lastindex > 0: ##lastindex앞으로 움직이기
                         lastindex -= 1
                         if cargo[lastindex] != 0:
                             break
-                else:
-                    diff = 0
         else:
             break
-    if totalCargo > C :
-        totalCargo = C
+
 
 print(output)
