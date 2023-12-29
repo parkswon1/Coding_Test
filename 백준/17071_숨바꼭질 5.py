@@ -1,32 +1,29 @@
-from collections import deque
 import sys
+from collections import deque
 
-N, K = map(int, sys.stdin.readline().split())
-i = 1
-visit = [-1]*500001
-visit[N] = 0
+def BFS():
+    while(que):
+        n, count, k = que.popleft()
+        for mn in (n + 1, n - 1, 2 * n):
+            mcount = count + 1
+            mk = k + mcount
+            check = count % 2
+            if 500001 > mn > -1 and 500001 > k > -1 and visited[mn][check] != mn:
+                visited[mn][check] = 1
+                if visited[mk][check] != 0:
+                    print(mcount)
+                    return
+                que.append([mn,mcount,mk])
 
-queue = deque([N])
-while queue:
-    current = queue.popleft()
+    print(-1)
+    return
 
-    if K + visit[current] > 500000:
-        print(-1)
-        break
-    elif current == K + visit[current]:
-        print(visit[K])
-        break
-
-    n_next = current * 2
-    if n_next < 500001 and visit[n_next] == -1 and n_next != 0:
-        visit[n_next] = visit[current] + 1
-        queue.append(n_next)
-    n_next = current - 1
-    if 0 <= n_next < 500001 and visit[n_next] == -1:
-        visit[n_next] = visit[current] + 1
-        queue.append(n_next)
-    n_next = current + 1
-    if n_next < 500001 and visit[n_next] == -1:
-        visit[n_next] = visit[current] + 1
-        queue.append(n_next)
-
+sys.setrecursionlimit(10**7)
+N, K = map(int,sys.stdin.readline().split())
+visited = [[0,0] for i in range(500001)]
+visited[N][0] = 1
+que = deque([[N,0,K]])
+if N == K:
+    print(0)
+else:
+    BFS()
