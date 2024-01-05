@@ -51,6 +51,7 @@ for i,line in enumerate(pan):
                 cur.append((i,j,value))
             if value==-1:
                 cleaner.append((i,j))
+
 dx = [-1,0,1,0]
 dy = [0,1,0,-1]
 a = cleaner[0][0]
