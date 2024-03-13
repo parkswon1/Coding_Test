@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 
-
 public class 진우의달여행small_17484 {
     static int n, m;
     static int[][] board;
