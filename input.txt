@@ -22,31 +22,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException { // IOException 예외를 던짐
         // 파일 경로 지정
         String filePath = "../input.txt";  // 상위 폴더에 있는 경우 상황에 맞게 경로를 조절해주세요.
 
-        try {
-            // 파일 읽어오기 (BufferedReader를 사용하여 효율적으로 읽기)
-            BufferedReader br = new BufferedReader(new FileReader(filePath));
-            List<String> inputLines = new ArrayList<>();
+        // 파일 읽어오기 (BufferedReader를 사용하여 효율적으로 읽기)
+        BufferedReader br = new BufferedReader(new FileReader(filePath));
+        List<String> inputLines = new ArrayList<>();
 
-            // 파일에서 한 줄씩 읽어와 리스트에 추가
-            String line;
-            while ((line = br.readLine()) != null) {
-                inputLines.add(line);
-            }
+        // 파일에서 한 줄씩 읽어와 리스트에 추가
+        String line;
+        while ((line = br.readLine()) != null) {
+            inputLines.add(line);
+        }
 
-            // 파일 닫기
-            br.close();
+        // 파일 닫기
+        br.close();
 
-            // 리스트 출력 (예시로 출력하였으나 실제로는 여기서 처리하면 됩니다)
-            for (String inputLine : inputLines) {
-                System.out.println(inputLine);
-            }
-        } catch (IOException e) {
-            // IOException 처리
-            e.printStackTrace();
+        // 리스트 출력 (예시로 출력하였으나 실제로는 여기서 처리하면 됩니다)
+        for (String inputLine : inputLines) {
+            System.out.println(inputLine);
         }
     }
 }
