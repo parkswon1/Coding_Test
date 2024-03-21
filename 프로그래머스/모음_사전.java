@@ -1,6 +1,6 @@
 package 프로그래머스;
 
-public class 모음사전 {
+public class 모음_사전 {
     static String newword= "";
     static int result = 0;
     static final int N = 5;
