@@ -1,6 +1,6 @@
 package 프로그래머스;
 
-public class 최소직사각형 {
+public class 최소_직사각형 {
     public static void main(String[] args){
         int[][] arr = {{60, 50}, {30, 70}, {60, 30}, {80, 40}};
         System.out.println(solution(arr));
