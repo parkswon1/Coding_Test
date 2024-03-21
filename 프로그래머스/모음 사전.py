@@ -8,7 +8,6 @@ def recurcive(words,word):
     global answer, count
     if words == word:
         answer = count
-        return
     elif len(words) != 5:
         for a in alpha:
             count += 1
