@@ -1,10 +1,8 @@
 from collections import deque
 
 def solution(maps):
-    answer = 0
     N = len(maps[0])
     M = len(maps)
-    visited = []
     move = [[1,0],[0,1],[-1,0],[0,-1]]
     maps[0][0] = 0
     que = deque([[0,0,1]])
