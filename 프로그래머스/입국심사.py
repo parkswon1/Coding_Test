@@ -9,7 +9,7 @@ def solution(n, times):
             count += mid // t
 
         if n > count:
-            start = mid  + 1
+            start = mid + 1
         else:
             end = mid - 1
 
