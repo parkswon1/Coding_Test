@@ -9,6 +9,7 @@ def moveBall(y, x, dy, dx):
         count += 1
     return y, x, count
 
+
 def BFS():
     global nodes, visited
     while nodes:
