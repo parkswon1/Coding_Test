@@ -4,26 +4,26 @@ def solve(bag, weight, visited):
     if visited == (1 << N) - 1:
         return 0
 
-    if cache[bag][weight][visited] != -1:
-        return cache[bag][weight][visited]
+    if dp[bag][weight][visited] != -1:
+        return dp[bag][weight][visited]
 
     ret = 0
     for i in range(N):
         if visited & (1 << i):
             continue
-        elif arr[i] > C:
+        elif jewels[i] > C:
             continue
-        elif weight + arr[i] > C:
-            ret = max(ret, solve(bag + 1, arr[i], visited | (1 << i)) + 1)
+        elif weight + jewels[i] > C:
+            ret = max(ret, solve(bag + 1, jewels[i], visited | (1 << i)) + 1)
         else:
-            ret = max(ret, solve(bag, weight + arr[i], visited | (1 << i)) + 1)
+            ret = max(ret, solve(bag, weight + jewels[i], visited | (1 << i)) + 1)
 
-    cache[bag][weight][visited] = ret
+    dp[bag][weight][visited] = ret
     return ret
 
 N, M, C = map(int, input().split())
-arr = list(map(int, input().split()))
-cache = [[[-1 for _ in range(1 << 13)] for _ in range(21)] for _ in range(11)]
+jewels = list(map(int, input().split()))
+dp = [[[-1 for _ in range(1 << 13)] for _ in range(21)] for _ in range(11)]
 
 print(solve(0, 0, 0))
 
