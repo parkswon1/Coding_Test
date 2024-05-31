@@ -1,40 +1,34 @@
 import sys
-N, M = list(map(int, sys.stdin.readline().split()))
-miro = []
-count = []
+sys.setrecursionlimit(100000)
+M,N = map(int,sys.stdin.readline().split())
+N,M = M,N # 편하게 보기 위해 M,N 스왑
+graph = []
 
 for i in range(N):
-    miro.append(list(map(int,sys.stdin.readline().split())))
-    count.append([0]*M)
+    temt = list(map(int,sys.stdin.readline().split()))
+    graph.append(temt)
 
-count[0][0] = 1
+DP = [ [-1] *M for _ in range(N)]
 
-for i in range(M):
-    if i != M-1:
-        if miro[0][i] > miro[0][i+1]:
-            count[0][i+1] += count[0][i]
-        if miro[0][i] > miro[1][i]:
-            count[1][i] += count[0][i]
-    else:
-        if miro[0][i] > miro[1][i]:
-            count[1][i] += count[0][i]
+def dfs(x,y):
 
-for y in range(1,N-1):
-    for x in range(M-1):
-        if miro[y][x] > miro[y][x+1]:
-            count[y][x+1] += count[y][x]
+    if (x,y) == (N-1,M-1):
+        return 1
 
-        a = -x-1
-        
-        if miro[y][a] > miro[y][a-1]:
-            count[y][a-1] += count[y][a]
-    
-    for x in range(M):
-        if miro[y][x] > miro[y+1][x]:
-            count[y+1][x] += count[y][x]
+    if DP[x][y]==-1:
+        DP[x][y]=0
 
-for i in range(M-1):
-    if miro[-1][i] > miro[-1][i+1]:
-        count[-1][i+1] += count[-1][i]
+        dx = [1,0,-1,0]
+        dy = [0,1,0,-1]
 
-print(count[N-1][M-1])
+        for i in range(4):
+
+            nx = x + dx[i]
+            ny = y + dy[i]
+
+            if 0<=nx<N and 0<=ny<M and graph[nx][ny]<graph[x][y]:
+                DP[x][y] += dfs(nx,ny)
+
+    return DP[x][y]
+
+print(dfs(0,0))
