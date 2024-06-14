@@ -1,53 +1,47 @@
+diceNums = list(map(int, input().split()))
 
+board = [0, 2, 4, 6, 8,
+         10, 12, 14, 16, 18,
+         20, 22, 24, 26, 28,
+         30, 32, 34, 36, 38,
+         40, 13, 16, 19, 25,
+         22, 24, 28, 27, 26,
+         30, 35, 0]
 
-board = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40,
-         0, 13, 16, 19, 25, 30, 35,
-         22, 24,
-         28, 27, 26,
-         32, 34, 36, 38, 40, 0]
+move = [[1], [2], [3], [4], [5],
+         [6, 21], [7], [8], [9], [10],
+         [11, 25], [12], [13], [14], [15],
+         [16, 27], [17], [18], [19], [20],
+         [32], [22], [23], [24], [30],
+         [26], [24], [28], [29], [24],
+         [31], [20], [32]]
 
-nextNode = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 21,
-            23, 24, 25, 26, 27, 20,
-            29, 30,
-            31, 32, 20,
-            34, 35, 36, 37, 20, 21]
-
-blue = {5: 22, 10: 28, 15: 31}
-pieces = [0, 0, 0, 0]
-
-def dfs(turn, score):
+turn = 0
+list = [0,0,0,0]
+answer = 0
+def dfs(turn, list, score):
     global answer
 
     if turn == 10:
-        answer = max(answer, score)
+        answer = max(answer , score)
         return
 
-    dice = dices[turn]
     for i in range(4):
-        if pieces[i] == 21:
-            continue
+        mx = list[i]
 
-        piece = pieces[i]
-        nextPiece = piece
+        if len(move[mx]) == 2:
+            mx = move[mx][1]
+        else:
+            mx = move[mx][0]
 
+        for _ in range(1, diceNums[turn]):
+            mx = move[mx][0]
 
-        if piece in blue:
-            nextPiece = blue[piece]
-            dice -= 1
+        if mx == 32 or (mx < 32 and mx not in list):
+            x = list[i]
+            list[i] = mx
+            dfs(turn+1, list, score + board[mx])
+            list[i] = x
 
-        for _ in range(dice):
-            nextPiece = nextNode[nextPiece]
-            if nextPiece == 21:
-                break
-
-        if nextPiece != 21 and nextPiece in pieces:
-            continue
-
-        pieces[i] = nextPiece
-        dfs(turn + 1, score + board[nextPiece])
-        pieces[i] = piece
-
-dices = list(map(int, input().split()))
-answer = 0
-dfs(0, 0)
+dfs(0, list, 0)
 print(answer)
