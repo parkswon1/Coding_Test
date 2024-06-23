@@ -7,8 +7,8 @@ answer = list(map(int, sys.stdin.readline().rstrip()))
 def change(light, target):
     count = 0
     for n in range(1, N):
-        if light[n - 1] == target[n - 1]: continue
-
+        if light[n - 1] == target[n - 1]:
+            continue
         count += 1
         for i in range(n - 1, n + 2):
             if i < N: light[i] = 1 - light[i]
