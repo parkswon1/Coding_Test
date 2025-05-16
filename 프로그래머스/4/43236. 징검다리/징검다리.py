@@ -18,4 +18,4 @@ def solution(distance, rocks, n):
             start = mid + 1
         else:
             end = mid - 1
-    return start - 1
+    return end
