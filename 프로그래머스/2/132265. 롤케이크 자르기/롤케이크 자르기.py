@@ -24,6 +24,7 @@ def solution(topping):
         rightSet.add(t)
         
         if len(leftDict) == len(rightSet):
-            answer += 1 
+            answer += 1
+        
     
     return answer
