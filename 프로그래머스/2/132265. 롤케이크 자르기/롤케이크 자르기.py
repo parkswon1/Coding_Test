@@ -8,7 +8,7 @@ from collections import defaultdict
 def solution(topping):
     answer = 0
     leftDict = {}
-    rightDict = {}
+    rightSet = set()
     
     for t in topping:
         if t in leftDict:
@@ -21,12 +21,9 @@ def solution(topping):
         if leftDict[t] == 0:
             leftDict.pop(t)
         
-        if t in rightDict:
-            rightDict[t] += 1
-        else:
-            rightDict[t] = 1
+        rightSet.add(t)
         
-        if len(leftDict) == len(rightDict):
+        if len(leftDict) == len(rightSet):
             answer += 1 
     
     return answer
