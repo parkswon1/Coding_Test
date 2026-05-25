@@ -1,8 +1,5 @@
 def solution(nums):
-    s = set()
-    for n in nums:
-        s.add(n)
-    
-    if len(s) > len(nums)/2:
-        return len(nums)/2
-    return len(s)
+    numSet = set(nums)
+    if len(nums) // 2 < len(numSet):
+        return len(nums)//2
+    return len(numSet)
