@@ -4,23 +4,21 @@ def solution(info, edges):
     answer = 0
     dict = {}
     for i in range(len(info)):
-        dict[i] = ([]) #(아래 간선)
+        dict[i] = ([])
     for a,b in edges:
         dict[a].append(b)
     
-    nodes = deque([(0,1,0,set())]) #(노드번호, 양 수, 늑대 수, 방문 기록)
-    
+    nodes = deque([(0,1,0,set())]) #지금노드, 양수, 늑대수, 방목할수있는 노드들
     while nodes:
-        current, sheepCount, wolfCount, visited = nodes.popleft()
-        answer = max(answer, sheepCount)
-        visited.update(dict[current])
+        current, sC, wC, canVisit = nodes.popleft()
+        answer = max(sC, answer)
+        canVisit.update(dict[current])
         
-        for next in visited:
-            if info[next]:
-                if sheepCount > wolfCount + 1:
-                    nodes.append((next, sheepCount, wolfCount + 1, visited - {next}))
+        for next in canVisit:
+            if info[next] == 1:
+                if sC > wC + 1:
+                    nodes.append((next, sC, wC + 1, canVisit - {next}))
             else:
-                nodes.append((next, sheepCount + 1, wolfCount, visited - {next}))
-                    
+                nodes.append((next, sC + 1, wC, canVisit - {next}))    
     
-    return answer 
+    return answer
