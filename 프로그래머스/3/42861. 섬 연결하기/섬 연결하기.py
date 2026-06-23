@@ -2,29 +2,32 @@ import heapq
 
 def solution(n, costs):
     answer = 0
-    visited = set()
-    nodes = []
-    heapq.heappush(nodes, (0, 0)) #cost, nextNode
     dict = {}
-    for start, end, cost in costs:
-        if start in dict:
-            dict[start].append((end, cost))
+    for a,b,c in costs:
+        if a in dict:
+            dict[a].append((b,c))
         else:
-            dict[start] = [(end, cost)]
-        if end in dict:
-            dict[end].append((start,cost))
+            dict[a] = [(b,c)]
+        if b in dict:
+            dict[b].append((a,c))
         else:
-            dict[end] = [(start,cost)]
+            dict[b] = [(a,c)]
     
-    while(nodes):
-        cost, current = heapq.heappop(nodes)
-        if current in visited:
+    nodes = []
+    heapq.heappush(nodes, (0,0)) #cost, node 번호
+    visited=set()
+    
+    while nodes:
+        temp, currentnode = heapq.heappop(nodes)
+        if currentnode in visited:
             continue
+        else:
+            visited.add(currentnode)
+        answer += temp
         
-        visited.add(current)
-        answer += cost
+        for node, cost in dict[currentnode]:
+            if node not in visited:
+                heapq.heappush(nodes,(cost, node))
         
-        for nextNode, cost in dict[current]:
-            heapq.heappush(nodes,(cost, nextNode))
-        
+    
     return answer
