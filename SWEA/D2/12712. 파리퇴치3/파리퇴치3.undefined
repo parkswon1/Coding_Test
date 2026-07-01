@@ -1,0 +1,53 @@
+T = int(input())
+
+def lineCount(board, y, x, M):
+    count = board[y][x]
+
+    for d in range(1, M):
+        if x - d >= 0:
+            count += board[y][x - d]
+
+        if x + d < N:
+            count += board[y][x + d]
+
+        if y - d >= 0:
+            count += board[y - d][x]
+
+        if y + d < N:
+            count += board[y + d][x]
+
+    return count
+
+def diagonalCount(board, y, x, M):
+    count = board[y][x]
+
+    for d in range(1, M):
+        if y - d >= 0 and x - d >= 0:
+            count += board[y - d][x - d]
+
+        if y - d >= 0 and x + d < N:
+            count += board[y - d][x + d]
+
+        if y + d < N and x - d >= 0:
+            count += board[y + d][x - d]
+
+        if y + d < N and x + d < N:
+            count += board[y + d][x + d]
+
+    return count
+
+for t in range(1, T + 1):
+    N, M = map(int, input().split())
+    board = []
+
+    for _ in range(N):
+        board.append(list(map(int, input().split())))
+
+    answer = 0
+
+    for y in range(N):
+        for x in range(N):
+            answer = max(answer, lineCount(board, y, x, M))
+            answer = max(answer, diagonalCount(board, y, x, M))
+
+    print(f"#{t} {answer}")
