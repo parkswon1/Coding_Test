@@ -1,45 +1,48 @@
 def solution(n, info):
-    answer = [-1, []]
-    nodes = [(n, [0] * 11, 0)]
+    answer = [-1]
+    diff = 0
+    nodes = [(0, n, [0] * 11)]
 
     while nodes:
-        arrowCount, board, stage = nodes.pop()
+        i, arrow, board = nodes.pop()
 
-        if stage == 11:
-            newBoard = board[:]
-            newBoard[-1] += arrowCount
+        if i == 10:
+            board[-1] = arrow
 
-            pichScore = 0
-            rianScore = 0
+            pichCount = 0
+            rianCount = 0
 
-            for i in range(11):
-                if newBoard[i] > info[i]:
-                    rianScore += 10 - i
-                elif info[i] > 0:
-                    pichScore += 10 - i
+            for j in range(len(info)):
+                if info[j] == 0 and board[j] == 0:
+                    continue
 
-            diff = rianScore - pichScore
+                if board[j] > info[j]:
+                    rianCount += 10 - j
+                else:
+                    pichCount += 10 - j
 
-            if diff > 0:
-                if answer[0] < diff:
-                    answer = [diff, newBoard]
-                elif answer[0] == diff:
-                    for i in range(10, -1, -1):
-                        if newBoard[i] > answer[1][i]:
-                            answer = [diff, newBoard]
+            currentDiff = rianCount - pichCount
+
+            if currentDiff > 0:
+                if currentDiff > diff:
+                    answer = board[:]
+                    diff = currentDiff
+
+                elif currentDiff == diff:
+                    for k in range(10, -1, -1):
+                        if board[k] > answer[k]:
+                            answer = board[:]
                             break
-                        elif newBoard[i] < answer[1][i]:
+                        elif board[k] < answer[k]:
                             break
+
             continue
 
-        if arrowCount > info[stage]:
-            newBoard = board[:]
-            newBoard[stage] = info[stage] + 1
-            nodes.append((arrowCount - newBoard[stage], newBoard, stage + 1))
+        if info[i] < arrow:
+            board[i] = info[i] + 1
+            nodes.append((i + 1, arrow - info[i] - 1, board[:]))
+            board[i] = 0
 
-        nodes.append((arrowCount, board[:], stage + 1))
+        nodes.append((i + 1, arrow, board[:]))
 
-    if answer[0] == -1:
-        return [-1]
-
-    return answer[1]
+    return answer
