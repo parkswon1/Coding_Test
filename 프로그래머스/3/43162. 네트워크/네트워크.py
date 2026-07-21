@@ -1,22 +1,19 @@
-from collections import deque
-
 def solution(n, computers):
     answer = 0
     visited = set()
     for i in range(n):
-        nodes = deque([i])
-        
         if i in visited:
             continue
         visited.add(i)
-        answer +=  1
-        while(nodes):
-            current = nodes.popleft()
+        nodes = [i]
+        while nodes:
+            node = nodes.pop()
+            for j in range(n):
+                if computers[node][j] == 0 or j in visited:
+                    continue
+                nodes.append(j)
+                visited.add(j)
             
-            for j in range(len(computers[0])):
-                if computers[current][j] == 1:
-                    if j not in visited:
-                        nodes.append(j)
-                        visited.add(current)
+        answer += 1
     
     return answer
