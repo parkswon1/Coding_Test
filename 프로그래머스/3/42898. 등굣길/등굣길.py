@@ -1,22 +1,25 @@
-def solution(M, N, puddle):
-    board = [[0] * M for _ in range(N)]
-    puddles = {(p[1] - 1, p[0] - 1) for p in puddle}
-
-    for m in range(M):
-        if (0, m) in puddles:
+def solution(m, n, puddles):
+    answer = 0
+    puddlset =set()
+    for p in puddles:
+        puddlset.add((p[1] - 1,p[0] - 1))
+    dp = [[0] * (m) for _ in range(n)]
+    for x in range(m):
+        if (0, x) in puddlset:
             break
-        board[0][m] = 1
-
-    for n in range(N):
-        if (n, 0) in puddles:
+        dp[0][x] = 1
+    for y in range(n):
+        if (y, 0) in puddlset:
             break
-        board[n][0] = 1
-
-    for y in range(1, N):
-        for x in range(1, M):
-            if (y, x) in puddles:
-                board[y][x] = 0
-            else:
-                board[y][x] = (board[y - 1][x] + board[y][x - 1]) % 1000000007
-
-    return board[N - 1][M - 1]
+        dp[y][0] = 1
+    for y in range(1, n):
+        for x in range(1, m):
+            dp[y][x] = dp[y][x - 1] + dp[y - 1][x]
+            if (y, x) in puddlset:
+                dp[y][x] = 0
+    
+    
+    print(dp)
+    print(puddlset)
+    
+    return dp[n - 1][m - 1] % 1000000007
