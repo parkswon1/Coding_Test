@@ -1,18 +1,15 @@
 def solution(n, times):
-    start = 1
-    end = min(times) * n
-    
-    while start <= end:
-        mid = (start + end) // 2
-        
-        
+    answer = 0
+    front = 0
+    end = max(times) * n
+    while front < end:
+        middle = (front + end)//2
         count = 0
         for t in times:
-            count += mid // t
-        
-        if n > count:
-            start = mid + 1
+            count += middle//t
+            
+        if count >= n:
+            end = middle
         else:
-            end = mid - 1
-        
-    return start
+            front = middle + 1
+    return front
