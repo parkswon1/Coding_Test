@@ -3,30 +3,25 @@ import heapq
 def solution(book_time):
     answer = 0
     
-    #룸예약수를 잡아놀 힙큐
-    roomHeap = []
+    rooms = []
+    for b in book_time:
+        heapq.heappush(rooms, (converTime(b[0]), converTime(b[1])))
     
-    book_time.sort()
-    
-    for book in book_time:
-        
-        #기존 만료된 방 제거
-        while(roomHeap):
-            if roomHeap[0] <= book[0]:
-                heapq.heappop(roomHeap)
+    usingR = []
+    while rooms:
+        r = heapq.heappop(rooms)
+        heapq.heappush(usingR, r[1])
+        while usingR:
+            if usingR[0] + 10 <= r[0]:
+                heapq.heappop(usingR)
             else:
                 break
+        answer = max(len(usingR), answer)
         
-        heapq.heappush(roomHeap, add10min(book[1]))
-        answer = max(len(roomHeap), answer)
     
     return answer
 
-def add10min(time):
-    h, m = map(int, time.split(":"))
-    m += 10
-    if m >= 60:
-        if h < 23:
-            h += 1  
-            m -= 60
-    return f"{h:02d}:{m:02d}"
+def converTime(s):
+    h, s = map(int, s.split(":"))
+    s += h * 60
+    return s
