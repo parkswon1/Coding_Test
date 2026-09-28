@@ -1,17 +1,17 @@
 def solution(participant, completion):
+    answer = ''
     dict = {}
-    for com in completion:
-        if com not in dict:
-            dict.setdefault(com,1)
+    for c in completion:
+        if c in dict:
+            dict[c] += 1
         else:
-            dict[com] = dict[com] + 1
+            dict[c] = 1
     
-    for par in participant:
-        if par in dict:
-            count = dict[par]
-            count -= 1
-            if count == -1:
-                return par
-            dict[par] = count
-        else:
-            return par
+    for p in participant:
+        if p not in dict:
+            return p
+        dict[p] -= 1
+        if dict[p] == 0:
+            dict.pop(p)
+        
+    return answer
