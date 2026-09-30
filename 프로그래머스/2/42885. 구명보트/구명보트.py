@@ -1,17 +1,18 @@
 from collections import deque
-
 def solution(people, limit):
     answer = 0
-
     people.sort()
-    pque = deque(people)
-
-    while pque:
-        heavy = pque.pop()
-
-        if pque and pque[0] + heavy <= limit:
-            pque.popleft()
-
-        answer += 1
-
+    people = deque(people)
+    while people:
+        if len(people) == 1:
+            return answer + 1
+        
+        if people[0] + people[-1] > limit:
+            answer += 1
+            people.pop()
+        else:
+            answer += 1
+            people.popleft()
+            people.pop()
+    
     return answer
