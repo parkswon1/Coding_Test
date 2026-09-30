@@ -1,19 +1,16 @@
+from collections import deque
+import math
+
 def solution(progresses, speeds):
     answer = []
-    index = 0
-    n = len(speeds)
-    for day in range(1,101):
-        count = 0
-        while(1):
-            if index == n:
-                break
-            if progresses[index] + (speeds[index] * day) >= 100:
-                count += 1
-                index += 1
-            else:
-                break
-        if count != 0:
-            answer.append(count)
-    
-        
+    day = 0
+    for i in range(len(progresses)):
+        p = progresses[i]
+        s = speeds[i]
+        if day * s + p >= 100:
+            answer[-1] += 1
+        else:
+            day += math.ceil((100 - (day * s + p)) / s)
+            answer.append(1)
+            
     return answer
