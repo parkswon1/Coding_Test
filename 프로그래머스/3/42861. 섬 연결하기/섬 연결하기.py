@@ -2,32 +2,33 @@ import heapq
 
 def solution(n, costs):
     answer = 0
-    dict = {}
+    dict = {} #key는 노드, (도착지, cost)
     for a,b,c in costs:
-        if a in dict:
-            dict[a].append((b,c))
-        else:
+        if a not in dict:
             dict[a] = [(b,c)]
-        if b in dict:
+        else:
+            dict[a].append((b,c))
+        if b not in dict:
+             dict[b] = [(a,c)]
+        else:
             dict[b].append((a,c))
-        else:
-            dict[b] = [(a,c)]
     
-    nodes = []
-    heapq.heappush(nodes, (0,0)) #cost, node 번호
-    visited=set()
-    
+    visited = set()
+    nodes = [(0,0)]
+    heapq.heapify(nodes) #cost, 지금노드
     while nodes:
-        temp, currentnode = heapq.heappop(nodes)
-        if currentnode in visited:
+        cost, node = heapq.heappop(nodes)
+        if node in visited:
             continue
-        else:
-            visited.add(currentnode)
-        answer += temp
         
-        for node, cost in dict[currentnode]:
-            if node not in visited:
-                heapq.heappush(nodes,(cost, node))
+        visited.add(node)
+        answer += cost
         
+        for nextNode, nextCost in dict[node]:
+            if nextNode not in visited:
+                heapq.heappush(nodes, (nextCost, nextNode))
+            
+            
     
-    return answer
+    
+    return answer 
