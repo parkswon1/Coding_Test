@@ -1,17 +1,19 @@
 def solution(prices):
-    answer = [float('inf')] * len(prices)
+    answer = [0] * len(prices)
     stack = []
     for i in range(len(prices)):
-        while(stack):
-            if stack[-1][0] > prices[i]:
-                answer[stack[-1][1]] = i - stack[-1][1]
-                stack.pop()
+        p = prices[i]
+        while stack:
+            if stack[-1][0] > p:
+                price, index = stack.pop()
+                answer[index] = i - index
             else:
                 break
-        stack.append([prices[i],i])
         
-    while(stack):
-        price, i = stack.pop()
-        answer[i] = len(prices) - i - 1
+        stack.append((p, i))
     
+    while stack:
+        price, index = stack.pop()
+        answer[index] = i - index
+                
     return answer
