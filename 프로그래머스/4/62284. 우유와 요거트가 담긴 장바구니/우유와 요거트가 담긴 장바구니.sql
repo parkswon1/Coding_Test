@@ -1,0 +1,6 @@
+-- 코드를 입력하세요
+SELECT CART_ID
+FROM CART_PRODUCTS
+GROUP BY CART_ID
+HAVING SUM(NAME = 'Milk') > 0 AND
+SUM(NAME = 'Yogurt') > 0
