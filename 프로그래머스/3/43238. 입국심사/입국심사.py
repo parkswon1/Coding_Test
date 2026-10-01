@@ -1,6 +1,6 @@
 def solution(n, times):
     answer = 0
-    front = 1
+    front = 0
     end = max(times) * n
     while front < end:
         middle = (front + end) // 2
