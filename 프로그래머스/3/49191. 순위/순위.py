@@ -1,20 +1,36 @@
-def solution(N, results):
-    answer = 0
-    winners = [set() for _ in range(N)]
-    losers = [set() for _ in range(N)]
+from collections import deque
+
+def solution(n, results):
+    winGraph = [[] for _ in range(n)]
+    loseGraph = [[] for _ in range(n)]
 
     for winner, loser in results:
-        winners[winner - 1].add(loser - 1)
-        losers[loser - 1].add(winner - 1)
+        winGraph[winner - 1].append(loser - 1)
+        loseGraph[loser - 1].append(winner - 1)
 
-    for n in range(N):
-        for winner in winners[n]:
-            losers[winner] |= losers[n]
-        for loser in losers[n]:
-            winners[loser] |= winners[n]
+    def bfs(start, graph):
+        visited = set()
+        queue = deque([start])
 
-    for n in range(N):
-        if len(winners[n]) + len(losers[n]) == N - 1:
+        while queue:
+            node = queue.popleft()
+
+            for nextNode in graph[node]:
+                if nextNode in visited:
+                    continue
+
+                visited.add(nextNode)
+                queue.append(nextNode)
+
+        return len(visited)
+
+    answer = 0
+
+    for i in range(n):
+        winCount = bfs(i, winGraph)
+        loseCount = bfs(i, loseGraph)
+
+        if winCount + loseCount == n - 1:
             answer += 1
 
     return answer
