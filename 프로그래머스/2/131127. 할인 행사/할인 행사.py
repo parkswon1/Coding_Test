@@ -1,34 +1,34 @@
+from collections import deque
+
 def solution(want, number, discount):
     answer = 0
-    wantDict = {}
-    for i in range(len(number)):
-        wantDict[want[i]] = number[i]
-
-    discCountDict = {}
-
-    for i in range(min(10, len(discount))):
-        discCountDict[discount[i]] = discCountDict.get(discount[i], 0) + 1
-
-    def checkAnswer():
-        for i in range(len(want)):
-            if wantDict[want[i]] != discCountDict.get(want[i], 0):
-                return False
-        return True
-
-    if len(discount) >= 10 and checkAnswer():
-        answer += 1
-
-    for i in range(10, len(discount)):
-        if len(discount) < 10:
-            break
-        front = i - 10
-        discCountDict[discount[front]] = discCountDict.get(discount[front], 0) - 1
-        if discCountDict[discount[front]] == 0:
-            del discCountDict[discount[front]]
-
-        discCountDict[discount[i]] = discCountDict.get(discount[i], 0) + 1
-
-        if checkAnswer():
+    wantdict = {}
+    buydict = {}
+    
+    for i in range(len(want)):
+        wantdict[want[i]] = number[i]
+    
+    que = deque([])
+    for d in discount:
+        if d not in buydict:
+            buydict[d] = 0
+        buydict[d] += 1
+        que.append(d)
+        
+        if len(que) > 10:
+            n = que.popleft()
+            buydict[n] -= 1
+            if buydict[n] == 0:
+                buydict.pop(n)
+        
+        flag = True
+        for w in wantdict:
+            if w in buydict and buydict[w] >= wantdict[w]:
+                continue
+                
+            flag = False
+        if flag:
+            print(d)
             answer += 1
-
+    
     return answer
