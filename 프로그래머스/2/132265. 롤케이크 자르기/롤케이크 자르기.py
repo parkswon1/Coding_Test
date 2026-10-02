@@ -1,24 +1,22 @@
 def solution(topping):
-    answer = 0
-    frontSet = set()
-    backSet = set()
-    backDict = {}
-    
+    fdict = {}
+    bdict = {}
     for t in topping:
-        backSet.add(t)
-        if t in backDict:
-            backDict[t] += 1
-        else:
-            backDict[t] = 1
+        if t not in bdict:
+            bdict[t] = 0
+        bdict[t] += 1
     
+    count = 0
     for t in topping:
-        frontSet.add(t)
-        if t in backDict:
-            backDict[t] -= 1
-            if backDict[t] <= 0:
-                backSet.remove(t)
+        if t not in fdict:
+            fdict[t] = 0
+        fdict[t] += 1
         
-        if len(frontSet) == len(backSet):
-            answer += 1
-    
-    return answer
+        bdict[t] -= 1
+        if bdict[t] == 0:
+            bdict.pop(t)
+        
+        if len(fdict) == len(bdict):
+            count += 1
+
+    return count
