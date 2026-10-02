@@ -8,7 +8,7 @@ def solution(queue1, queue2):
     c2 = sum(queue2)
     q2 = deque(queue2)
     count = 0
-    count2 = 0
+
     while c1 != c2:  #앞으로뺴기
         while c1 > goal and q1:
             count += 1
